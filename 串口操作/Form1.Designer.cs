@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
             this.comboBoxPortName = new System.Windows.Forms.ComboBox();
             this.label1 = new System.Windows.Forms.Label();
             this.buttonOpenClose = new System.Windows.Forms.Button();
@@ -35,6 +36,9 @@
             this.textBoxGet = new System.Windows.Forms.TextBox();
             this.textBoxSend = new System.Windows.Forms.TextBox();
             this.buttonSend = new System.Windows.Forms.Button();
+            this.timerCheak = new System.Windows.Forms.Timer(this.components);
+            this.textBoxAdvertData = new System.Windows.Forms.TextBox();
+            this.labelQueueCount = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
             // comboBoxPortName
@@ -100,11 +104,36 @@
             this.buttonSend.UseVisualStyleBackColor = true;
             this.buttonSend.Click += new System.EventHandler(this.buttonSend_Click);
             // 
+            // timerCheak
+            // 
+            this.timerCheak.Enabled = true;
+            this.timerCheak.Interval = 1000;
+            this.timerCheak.Tick += new System.EventHandler(this.timerCheak_Tick);
+            // 
+            // textBoxAdvertData
+            // 
+            this.textBoxAdvertData.Location = new System.Drawing.Point(546, 81);
+            this.textBoxAdvertData.Multiline = true;
+            this.textBoxAdvertData.Name = "textBoxAdvertData";
+            this.textBoxAdvertData.Size = new System.Drawing.Size(223, 173);
+            this.textBoxAdvertData.TabIndex = 7;
+            // 
+            // labelQueueCount
+            // 
+            this.labelQueueCount.AutoSize = true;
+            this.labelQueueCount.Location = new System.Drawing.Point(610, 40);
+            this.labelQueueCount.Name = "labelQueueCount";
+            this.labelQueueCount.Size = new System.Drawing.Size(41, 12);
+            this.labelQueueCount.TabIndex = 8;
+            this.labelQueueCount.Text = "label2";
+            // 
             // FormPort
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(690, 364);
+            this.ClientSize = new System.Drawing.Size(781, 364);
+            this.Controls.Add(this.labelQueueCount);
+            this.Controls.Add(this.textBoxAdvertData);
             this.Controls.Add(this.buttonSend);
             this.Controls.Add(this.textBoxSend);
             this.Controls.Add(this.textBoxGet);
@@ -129,6 +158,9 @@
         private System.Windows.Forms.TextBox textBoxGet;
         private System.Windows.Forms.TextBox textBoxSend;
         private System.Windows.Forms.Button buttonSend;
+        private System.Windows.Forms.Timer timerCheak;
+        private System.Windows.Forms.TextBox textBoxAdvertData;
+        private System.Windows.Forms.Label labelQueueCount;
     }
 }
 

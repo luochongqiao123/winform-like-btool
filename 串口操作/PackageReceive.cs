@@ -22,6 +22,7 @@ namespace 串口操作
         public byte PackDataLength { get { return _datalength; } }
         public UInt16 Event { get { return _event; } }
 
+        public const byte Success = 0x00;
 
         public PackageReceive(byte[] DataBuf)
         {
@@ -62,6 +63,9 @@ namespace 串口操作
     class GAP_HCI_ExtertionCommandStatusPack : PackageReceive, IGAP_HCI_ExtertionCommandStatus
     {
         private byte[] _data;
+
+        public const UInt16 GAP_GetParamOpCode = 0xFE31;
+        public const UInt16 GAP_SetParamOpCode = 0xFE30;
 
         public GAP_HCI_ExtertionCommandStatusPack(byte[] DataBuf)
             : base(DataBuf)
@@ -118,7 +122,8 @@ namespace 串口操作
             if (this.DataLength != 0)
             {
                 _data = new byte[this.DataLength];
-                //Array.Copy()
+                Array.Copy(this.DataList, 16, _data, 0, this.DataLength);
+                //Array.Reverse(_data);
             }
         }
 
@@ -136,7 +141,22 @@ namespace 串口操作
         }
         public byte Rssi { get { return this.DataList[14]; } }
         public byte DataLength { get { return this.DataList[15]; } }
-        public byte[] Data { }
+        public byte[] Data { get { return _data; } }
+    }
+
+    /*
+     * 扫描以后的设备汇总的包
+     */
+    class GAP_DeviceDiscoveryDonePack : PackageReceive, IGAP_DeviceDiscoveryDone
+    {
+        public GAP_DeviceDiscoveryDonePack(byte[] buf)
+            : base(buf)
+        {
+            //TODO
+        }
+
+        public byte Status { get { return this.DataList[5]; } }
+        public byte NumDevs { get { return this.DataList[6]; } }
     }
 
 }
