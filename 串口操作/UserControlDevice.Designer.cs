@@ -153,6 +153,7 @@
             this.Controls.Add(this.labelShowTemp);
             this.Name = "UserControlDevice";
             this.Size = new System.Drawing.Size(159, 154);
+            this.Load += new System.EventHandler(this.UserControlDevice_Load);
             this.ResumeLayout(false);
             this.PerformLayout();
 

@@ -115,6 +115,10 @@ namespace 串口操作
     class GAP_DeviceInformationPack : PackageReceive, IGAP_DeviceInformation
     {
         private byte[] _data;
+
+        public const byte scanRsp = 0x04;
+        public const byte Undirect_Advertisement = 0x00;
+
         public GAP_DeviceInformationPack(byte[] buf)
             : base(buf)
         {

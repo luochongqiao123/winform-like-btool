@@ -16,5 +16,19 @@ namespace 串口操作
         {
             InitializeComponent();
         }
+
+        //public UserControlDevice(GAP_DeviceInformationPack Pack)
+        //{
+        //    InitializeComponent();
+        //    //this.labelDeviceAddr.Text = Pack.Addr.ToString();
+        //}
+
+
+        private void UserControlDevice_Load(object sender, EventArgs e)
+        {
+
+        }
+
+        public string Addr { get { return this.labelDeviceAddr.Text;} }
     }
 }

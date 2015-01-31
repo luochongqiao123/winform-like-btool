@@ -177,6 +177,7 @@ namespace 串口操作
         private void GAP_HCI_ExtentionCommandStatusProcess(GAP_HCI_ExtertionCommandStatusPack Pack)
         {
             if (Pack.Status != PackageReceive.Success) return;
+            
         }
 
         /*

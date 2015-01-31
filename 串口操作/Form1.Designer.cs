@@ -39,6 +39,7 @@
             this.timerCheak = new System.Windows.Forms.Timer(this.components);
             this.textBoxAdvertData = new System.Windows.Forms.TextBox();
             this.labelQueueCount = new System.Windows.Forms.Label();
+            this.userControlDevice1 = new 串口操作.UserControlDevice();
             this.SuspendLayout();
             // 
             // comboBoxPortName
@@ -127,11 +128,19 @@
             this.labelQueueCount.TabIndex = 8;
             this.labelQueueCount.Text = "label2";
             // 
+            // userControlDevice1
+            // 
+            this.userControlDevice1.Location = new System.Drawing.Point(33, 326);
+            this.userControlDevice1.Name = "userControlDevice1";
+            this.userControlDevice1.Size = new System.Drawing.Size(159, 154);
+            this.userControlDevice1.TabIndex = 9;
+            // 
             // FormPort
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(781, 364);
+            this.ClientSize = new System.Drawing.Size(781, 479);
+            this.Controls.Add(this.userControlDevice1);
             this.Controls.Add(this.labelQueueCount);
             this.Controls.Add(this.textBoxAdvertData);
             this.Controls.Add(this.buttonSend);
@@ -161,6 +170,7 @@
         private System.Windows.Forms.Timer timerCheak;
         private System.Windows.Forms.TextBox textBoxAdvertData;
         private System.Windows.Forms.Label labelQueueCount;
+        private UserControlDevice userControlDevice1;
     }
 }
 
