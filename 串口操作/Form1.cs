@@ -139,30 +139,52 @@ namespace 串口操作
 
         }
 
+        public event PackComeEventHandler GAP_HCI_ExtentionCommandStatusPackComeEvent;
+        public event PackComeEventHandler GAP_DeviceInitDoneEventPackComeEvent;
+        public event PackComeEventHandler GAP_DeviceInformationEventPackComeEvent;
+        public event PackComeEventHandler GAP_DeviceDiscoveryDoneEventPackComeEvent;
+
+
         private void PackageProcess()
         {
             while (this.BufferStream.Count != 0)
             {
                 this.labelQueueCount.Text = this.BufferStream.Count.ToString();
                 byte[] temp = this.BufferStream.Dequeue();
-                if (temp.Length <= 4) break;
-                switch (PackageReceive.Combine2ByteToUInt16(temp[4],temp[3]))
-                {
+                if (temp.Length <= 4) break;//不规则的包会被直接抛弃
+                switch (PackageReceive.Combine2ByteToUInt16(temp[4],temp[3]))//判断收到的包是什么类型的包
+                {                                   //switch case 触发不同的事件处理函数
                     case GAP_HCI_ExtentionCommandStatusEvent:
                         //TODO
+                        if (GAP_HCI_ExtentionCommandStatusPackComeEvent != null)
+                        {
+                            GAP_HCI_ExtentionCommandStatusPackComeEvent(this, new PackEventArgs(temp));
+                        }
                         break;
 
                     case GAP_DeviceInitDoneEvent:
                         //TODO
+                        if (GAP_DeviceInitDoneEventPackComeEvent != null)
+                        {
+                            GAP_DeviceInitDoneEventPackComeEvent(this, new PackEventArgs(temp));
+                        }
                         break;
 
                     case GAP_DeviceInformationEvent:
                         //TODO
-                        GAP_DeviceInformationProcess(new GAP_DeviceInformationPack(temp));
+                        //GAP_DeviceInformationProcess(new GAP_DeviceInformationPack(temp));
+                        if (GAP_DeviceInformationEventPackComeEvent != null)
+                        {
+                            GAP_DeviceInformationEventPackComeEvent(this.userControlDevice1, new PackEventArgs(temp));
+                        }
                         break;
 
                     case GAP_DeviceDiscoveryDoneEvent:
                         //TODO
+                        if (GAP_DeviceDiscoveryDoneEventPackComeEvent != null)
+                        {
+                            GAP_DeviceDiscoveryDoneEventPackComeEvent(this, new PackEventArgs(temp));
+                        }
                         break;
 
                     default: break;
@@ -196,7 +218,25 @@ namespace 串口操作
                 }
                 this.textBoxAdvertData.AppendText(newBuilder.ToString() + "\r\n");
             }
+        }
 
+        /*
+         * 扫描信息处理函数
+         */
+        public void GAP_DeviceInformationEventPackComeProcess(object sender, PackEventArgs e)
+        {
+            GAP_DeviceInformationPack Pack = new GAP_DeviceInformationPack(e._pack);
+            if (Pack.EventType == 0x04)
+            {
+                byte[] temp = Pack.Data;
+                StringBuilder newBuilder = new StringBuilder();
+                //this.textBoxAdvertData
+                foreach (byte b in temp)
+                {
+                    newBuilder.Append(b.ToString("X2") + " ");
+                }
+                this.textBoxAdvertData.AppendText(newBuilder.ToString() + "\r\n");
+            }
         }
         
     }

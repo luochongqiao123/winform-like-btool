@@ -8,32 +8,20 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
-namespace 串口操作
+namespace 毕业设计
 {
-    public partial class UserControlDevice : UserControl
+    public partial class UserConDataShow : UserControl
     {
+        public UserConDataShow()
+        {
+            InitializeComponent();
+        }
+
         private string _addr;
         private string _temp;
         private string _humi;
         private string _name;
         private string _rssi;
-
-        public UserControlDevice()
-        {
-            InitializeComponent();
-        }
-
-        //public UserControlDevice(GAP_DeviceInformationPack Pack)
-        //{
-        //    InitializeComponent();
-        //    //this.labelDeviceAddr.Text = Pack.Addr.ToString();
-        //}
-
-
-        private void UserControlDevice_Load(object sender, EventArgs e)
-        {
-
-        }
 
         public string DeviceAddr
         {
@@ -105,6 +93,5 @@ namespace 串口操作
                 return _rssi;
             }
         }
-
     }
 }
