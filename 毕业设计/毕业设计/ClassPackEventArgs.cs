@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace 串口操作
+namespace 毕业设计
 {
 
     public delegate void PackComeEventHandler(object sender,PackEventArgs e);

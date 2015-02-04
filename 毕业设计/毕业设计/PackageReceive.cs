@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace 串口操作
+namespace 毕业设计
 {
     /*
      * 数据包的基类
@@ -16,6 +16,11 @@ namespace 串口操作
         private byte _datalength;
         private UInt16 _event;
         protected byte[] DataList;
+
+        public const UInt16 GAP_HCI_ExtentionCommandStatusEvent = 0x067F;
+        public const UInt16 GAP_DeviceInitDoneEvent = 0x0600;
+        public const UInt16 GAP_DeviceInformationEvent = 0x060D;
+        public const UInt16 GAP_DeviceDiscoveryDoneEvent = 0x0601;
         
 
         public byte EventCode { get { return _eventcode; } }
@@ -145,7 +150,7 @@ namespace 串口操作
         }
         public byte Rssi { get { return this.DataList[14]; } }
         public byte DataLength { get { return this.DataList[15]; } }
-        public byte[] Data { get { return _data; } }
+        public byte[] AdvertData { get { return _data; } }
     }
 
     /*

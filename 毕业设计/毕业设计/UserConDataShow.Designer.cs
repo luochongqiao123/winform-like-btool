@@ -144,6 +144,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.BackColor = System.Drawing.SystemColors.ButtonShadow;
             this.Controls.Add(this.labelRssi);
             this.Controls.Add(this.labelDeviceName);
             this.Controls.Add(this.labelDeviceAddr);

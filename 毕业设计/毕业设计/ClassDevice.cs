@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace 串口操作
+namespace 毕业设计
 {
     class TempHumiDevice
     {
@@ -16,9 +16,11 @@ namespace 串口操作
         private double _currentTemp;
         private double _currentHumi;
 
+        public TempHumiDevice() { }
+
         public TempHumiDevice(GAP_DeviceInformationPack Pack)
         {
-            this._addr = ToHexString(Pack.Addr);
+            this._addr = ToHexAddrString(Pack.Addr);
             this._lastUpdate = new DateTime();
             this._lastUpdate = DateTime.Now;
             this._lastRssi = this._currentRssi = Pack.Rssi;
@@ -26,11 +28,14 @@ namespace 串口操作
 
         public void DeviceUpdate(GAP_DeviceInformationPack Pack)
         {
-            if (ToHexString(Pack.Addr) != this._addr) return;
+            //if (ToHexAddrString(Pack.Addr) != this._addr) return;
             this._lastRssi = this._currentRssi;
             this._currentRssi = Pack.Rssi;
             this._lastUpdate = DateTime.Now;
-            ProcessData(Pack.Data, GAP_DeviceInformationPack.Undirect_Advertisement);
+            if (Pack.EventType == GAP_DeviceInformationPack.Undirect_Advertisement)
+            {
+                ProcessData(Pack.AdvertData, GAP_DeviceInformationPack.Undirect_Advertisement);
+            }
         }
 
         public string DeviceAddr { get { return this._addr; } }
@@ -38,7 +43,7 @@ namespace 串口操作
         public double CurTemp { get { return _currentTemp; } }
         public double CurHumi { get { return _currentHumi; } }
 
-        public static string ToHexString(byte[] data)//把byte[]转换为16进制的string地址类型
+        public static string ToHexAddrString(byte[] data)//把byte[]转换为16进制的string地址类型
         {
             string HexString = string.Empty;
             if (data != null)
@@ -49,7 +54,7 @@ namespace 串口操作
                     strB.Append(data[i].ToString("X2"));
                     strB.Append(":");//中间插入：
                 }
-                strB.Remove(strB.Length - 1, 1);//把最后的：（）冒号去掉
+                strB.Remove(strB.Length - 1, 1);//把最后的：冒号去掉
                 HexString = strB.ToString();
             }
             return HexString;
@@ -77,9 +82,16 @@ namespace 串口操作
                         }
                         else
                         {
-                            index += length+1;//如果不相同，就往下移
-                            length = Data[index];
-                            currentParam = Data[index + 1];
+                            try
+                            {
+                                index += length + 1;//如果不相同，就往下移
+                                length = Data[index];
+                                currentParam = Data[index + 1];
+                            }
+                            catch
+                            {
+                                break;
+                            }
                         }
                     }
 
@@ -102,15 +114,31 @@ namespace 串口操作
                         }
                         else
                         {
-                            index += length + 1;//如果不相同，就往下移
-                            length = Data[index];
-                            currentParam = Data[index + 1];
+                            try
+                            {
+                                index += length + 1;//如果不相同，就往下移
+                                length = Data[index];
+                                currentParam = Data[index + 1];
+                            }
+                            catch
+                            {
+                                break;
+                            }
                         }
                     }
 
                     if (index < Data.Length)//如果有找到数据段
                     {
-                        
+                        const double d1 = -40.1;
+                        const double d2 = 0.01;
+                        UInt16 SOt = PackageReceive.Combine2ByteToUInt16(Data[index + 2], Data[index + 3]);
+                        _currentTemp = d1 + d2 * SOt;//计算得到温度
+
+                        const double c1 = -2.0468;
+                        const double c2 = 0.0367;
+                        const double c3 = -1.5955E-6;
+                        UInt16 SOrh = PackageReceive.Combine2ByteToUInt16(Data[index + 5], Data[index + 6]);
+                        _currentHumi = c1 + c2 * SOrh + c3 * SOrh * SOrh;//计算得到湿度
                     }
                     break;
 
@@ -120,7 +148,11 @@ namespace 串口操作
 
             
         }
-       
+
+        public void DataComeUpdate(object sender, PackEventArgs e)//收到新包的事件处理函数
+        {
+            DeviceUpdate(new GAP_DeviceInformationPack(e._pack));
+        }
         
     }
 }

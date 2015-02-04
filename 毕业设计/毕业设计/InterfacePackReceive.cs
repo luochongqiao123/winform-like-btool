@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace 串口操作
+namespace 毕业设计
 {
     /*
      * 发送数据包以后Dongle发回来的握手包，表示数据包的接受情况
@@ -37,7 +37,7 @@ namespace 串口操作
          byte[] Addr { get; }
          byte Rssi { get; }
          byte DataLength { get; }
-         byte[] Data { get; }
+         byte[] AdvertData { get; }
     }
 
     /*

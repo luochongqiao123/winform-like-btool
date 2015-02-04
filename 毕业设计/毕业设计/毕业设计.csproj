@@ -46,6 +46,7 @@
   <ItemGroup>
     <Compile Include="ClassDevice.cs" />
     <Compile Include="ClassPackEventArgs.cs" />
+    <Compile Include="ClassUsbDongle.cs" />
     <Compile Include="Form1.cs">
       <SubType>Form</SubType>
     </Compile>
