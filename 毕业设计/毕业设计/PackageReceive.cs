@@ -151,6 +151,52 @@ namespace 毕业设计
         public byte Rssi { get { return this.DataList[14]; } }
         public byte DataLength { get { return this.DataList[15]; } }
         public byte[] AdvertData { get { return _data; } }
+
+        /// <summary>
+        /// 提取有用的信息，返回字符串段
+        /// </summary>
+        /// <param name="AdvertData">输入的广播信息的byte[]</param>
+        /// <param name="targetParamID">需要提取的信息的参数ID</param>
+        /// <returns>返回该段的byte[]</returns>
+        public static byte[] AdvertData_Extraction(byte[] AdvertData, byte targetParamID)
+        {
+            if (AdvertData == null) return null ;
+
+            int index = 0;
+            int length = AdvertData[index];
+            //byte targetParam;//数据段的类型
+            byte currentParam = AdvertData[index + 1];
+
+            while (index < AdvertData.Length)
+            {
+                if (targetParamID == currentParam)
+                {
+                    break;//如果相同，当前index就是所需的数据段
+                }
+                else
+                {
+                    try
+                    {
+                        index += length + 1;//如果不相同，就往下移
+                        length = AdvertData[index];
+                        currentParam = AdvertData[index + 1];
+                    }
+                    catch
+                    {
+                        break;
+                    }
+                }
+            }//end of while
+
+            if (index < AdvertData.Length)//如果有找到数据段
+            {
+                byte[] result = new byte[length - 1];
+                Array.Copy(AdvertData, index + 2, result, 0, length - 1);
+                return result;
+            }
+            else
+                return null;
+        }
     }
 
     /*

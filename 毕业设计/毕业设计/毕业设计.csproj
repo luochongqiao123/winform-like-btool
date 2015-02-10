@@ -47,6 +47,7 @@
     <Compile Include="ClassDevice.cs" />
     <Compile Include="ClassPackEventArgs.cs" />
     <Compile Include="ClassUsbDongle.cs" />
+    <Compile Include="ClassXMLsaver.cs" />
     <Compile Include="Form1.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -91,6 +92,11 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="XMLFileDeviceHistory.xml">
+      <SubType>Designer</SubType>
+    </Content>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

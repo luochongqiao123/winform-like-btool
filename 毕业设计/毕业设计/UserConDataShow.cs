@@ -22,6 +22,8 @@ namespace 毕业设计
         private string _humi;
         private string _name;
         private string _rssi;
+        private DateTime _deviceLastUpdate;
+        private string _nameInapp;//在软件上显示的名称
 
         public string DeviceAddr
         {
@@ -92,6 +94,43 @@ namespace 毕业设计
             {
                 return _rssi;
             }
+        }
+
+        public DateTime DeviceLastUpdate 
+        {
+            get 
+            {
+                return this._deviceLastUpdate; 
+            }
+            set 
+            { 
+                _deviceLastUpdate = value; 
+            }
+        }
+
+        public string NameInApplication
+        {
+            get 
+            {
+                return this._nameInapp;
+            }
+            set
+            {
+                this._nameInapp = value;
+                this.labelNameInApp.Text = this._nameInapp;
+            }
+        }
+
+        public void DataShowUpdate(object sender, EventArgs e)  //搭配Device，更新显示的数据
+        {
+            TempHumiDevice Device = (TempHumiDevice)sender;
+
+            this.Temp = Device.CurTemp.ToString() + "℃";
+            this.Humi = Device.CurHumi.ToString("n2") + "%";
+            this.Rssi = Device.Rssi.ToString("X2");
+            this.DeviceAddr = Device.DeviceAddr;
+            this.DeviceName = Device.DeviceName;
+            this.DeviceLastUpdate = Device.LastUpdate;
         }
     }
 }

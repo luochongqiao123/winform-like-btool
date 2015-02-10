@@ -30,7 +30,6 @@
         {
             this.comboBoxPort = new System.Windows.Forms.ComboBox();
             this.buttonOpenClose = new System.Windows.Forms.Button();
-            this.userConDataShow1 = new 毕业设计.UserConDataShow();
             this.SuspendLayout();
             // 
             // comboBoxPort
@@ -51,24 +50,11 @@
             this.buttonOpenClose.UseVisualStyleBackColor = true;
             this.buttonOpenClose.Click += new System.EventHandler(this.buttonOpenClose_Click);
             // 
-            // userConDataShow1
-            // 
-            this.userConDataShow1.DeviceAddr = null;
-            this.userConDataShow1.DeviceName = null;
-            this.userConDataShow1.Humi = null;
-            this.userConDataShow1.Location = new System.Drawing.Point(12, 41);
-            this.userConDataShow1.Name = "userConDataShow1";
-            this.userConDataShow1.Rssi = null;
-            this.userConDataShow1.Size = new System.Drawing.Size(202, 184);
-            this.userConDataShow1.TabIndex = 2;
-            this.userConDataShow1.Temp = null;
-            // 
             // FormTempHumi
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(535, 398);
-            this.Controls.Add(this.userConDataShow1);
             this.Controls.Add(this.buttonOpenClose);
             this.Controls.Add(this.comboBoxPort);
             this.Name = "FormTempHumi";
@@ -82,7 +68,6 @@
 
         private System.Windows.Forms.ComboBox comboBoxPort;
         private System.Windows.Forms.Button buttonOpenClose;
-        private UserConDataShow userConDataShow1;
     }
 }
 

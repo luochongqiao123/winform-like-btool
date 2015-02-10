@@ -28,15 +28,13 @@ namespace 毕业设计
             comm = new SerialPort();
             comm.NewLine = "\r\n";
             comm.RtsEnable = true;//视个人情况
-            comm.DataReceived += new SerialDataReceivedEventHandler(comm_DataReceived);
 
             TimerCheck.Enabled = true;
-            TimerCheck.Interval = 3000;//设定定时器,3秒一次
+            TimerCheck.Interval = 4000;//设定定时器,3秒一次
             TimerCheck.Stop();
             TimerCheck.Tick +=TimerCheck_Tick;
 
             this.GAP_DeviceInitDoneEventPackComeEvent += UsbDongle_GAP_DeviceInitDoneEventPackComeEvent;
-            
         }
 
         void comm_DataReceived(object sender, SerialDataReceivedEventArgs e)//串口收到数据后的回调函数
@@ -47,7 +45,7 @@ namespace 毕业设计
             Port.Read(buf, 0, n);//读取串口信息到buf里面
             PackQue.Enqueue(buf);//入队列
         }
-
+        
         public void DongleOpen(string text)   //打开串口
         {
             comm.PortName = text;
@@ -57,7 +55,7 @@ namespace 毕业设计
                 comm.Open();//打开串口后马上初始化USB Dongle
                 comm.DiscardInBuffer();
                 comm.DiscardOutBuffer();
-                //comm.Write(PackageSend.GAP_DeviceInitPack(), 0, PackageSend.GAP_DeviceInitLength);
+                comm.DataReceived += new SerialDataReceivedEventHandler(comm_DataReceived); //串口接收到数据的回调函数
             }
             catch (Exception ex)
             {
@@ -99,8 +97,7 @@ namespace 毕业设计
                         break;
 
                     case PackageReceive.GAP_DeviceInformationEvent:
-                        //TODO
-                        //GAP_DeviceInformationProcess(new GAP_DeviceInformationPack(temp));
+                       //
                         if (GAP_DeviceInformationEventPackComeEvent != null)
                         {
                             GAP_DeviceInformationEventPackComeEvent(this, new PackEventArgs(temp));
@@ -139,7 +136,7 @@ namespace 毕业设计
             if (Pack.Status == PackageReceive.Success)
             {
                 //扫描间隔改为2s，即扫描在2s内完成
-                Dongle.SendCmd(PackageSend.GAP_SetParamPack(PackageSend.TGAP_GEN_DISC_SCAN, (UInt16)2000));
+                Dongle.SendCmd(PackageSend.GAP_SetParamPack(PackageSend.TGAP_GEN_DISC_SCAN, (UInt16)3000));
             }
             else
             {

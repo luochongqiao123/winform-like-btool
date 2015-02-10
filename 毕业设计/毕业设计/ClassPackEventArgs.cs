@@ -19,4 +19,20 @@ namespace 毕业设计
             this._pack = data;
         }
     }
+
+    public delegate void DeviceDataUpdateDoneEventHandler(object sender, DeviceEventArgs e);
+
+    public class DeviceEventArgs : EventArgs
+    {
+        public readonly string UpdateElementXName;
+
+        /// <summary>
+        /// 携带要更新的Element的名字
+        /// </summary>
+        /// <param name="Xname"></param>
+        public DeviceEventArgs(string Xname)
+        {
+            this.UpdateElementXName = Xname;
+        }
+    }
 }

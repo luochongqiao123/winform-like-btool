@@ -38,6 +38,8 @@
             this.labelDeviceAddr = new System.Windows.Forms.Label();
             this.labelDeviceName = new System.Windows.Forms.Label();
             this.labelRssi = new System.Windows.Forms.Label();
+            this.label6 = new System.Windows.Forms.Label();
+            this.labelNameInApp = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
             // label1
@@ -54,7 +56,7 @@
             // 
             this.label2.AutoSize = true;
             this.label2.Font = new System.Drawing.Font("宋体", 10.5F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.label2.Location = new System.Drawing.Point(3, 77);
+            this.label2.Location = new System.Drawing.Point(3, 60);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(77, 14);
             this.label2.TabIndex = 1;
@@ -64,7 +66,7 @@
             // 
             this.label3.AutoSize = true;
             this.label3.Font = new System.Drawing.Font("宋体", 10.5F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.label3.Location = new System.Drawing.Point(3, 114);
+            this.label3.Location = new System.Drawing.Point(3, 90);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(77, 14);
             this.label3.TabIndex = 2;
@@ -74,7 +76,7 @@
             // 
             this.label4.AutoSize = true;
             this.label4.Font = new System.Drawing.Font("宋体", 10.5F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.label4.Location = new System.Drawing.Point(3, 145);
+            this.label4.Location = new System.Drawing.Point(3, 120);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(35, 14);
             this.label4.TabIndex = 3;
@@ -114,7 +116,7 @@
             // 
             this.labelDeviceAddr.AutoSize = true;
             this.labelDeviceAddr.Font = new System.Drawing.Font("宋体", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.labelDeviceAddr.Location = new System.Drawing.Point(9, 91);
+            this.labelDeviceAddr.Location = new System.Drawing.Point(10, 74);
             this.labelDeviceAddr.Name = "labelDeviceAddr";
             this.labelDeviceAddr.Size = new System.Drawing.Size(144, 16);
             this.labelDeviceAddr.TabIndex = 7;
@@ -124,7 +126,7 @@
             // 
             this.labelDeviceName.AutoSize = true;
             this.labelDeviceName.Font = new System.Drawing.Font("宋体", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.labelDeviceName.Location = new System.Drawing.Point(10, 128);
+            this.labelDeviceName.Location = new System.Drawing.Point(10, 104);
             this.labelDeviceName.Name = "labelDeviceName";
             this.labelDeviceName.Size = new System.Drawing.Size(120, 16);
             this.labelDeviceName.TabIndex = 8;
@@ -134,17 +136,39 @@
             // 
             this.labelRssi.AutoSize = true;
             this.labelRssi.Font = new System.Drawing.Font("宋体", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.labelRssi.Location = new System.Drawing.Point(10, 159);
+            this.labelRssi.Location = new System.Drawing.Point(10, 134);
             this.labelRssi.Name = "labelRssi";
             this.labelRssi.Size = new System.Drawing.Size(32, 16);
             this.labelRssi.TabIndex = 9;
             this.labelRssi.Text = "221";
+            // 
+            // label6
+            // 
+            this.label6.AutoSize = true;
+            this.label6.Font = new System.Drawing.Font("宋体", 10.5F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.label6.Location = new System.Drawing.Point(84, 120);
+            this.label6.Name = "label6";
+            this.label6.Size = new System.Drawing.Size(70, 14);
+            this.label6.TabIndex = 10;
+            this.label6.Text = "NameInApp";
+            // 
+            // labelNameInApp
+            // 
+            this.labelNameInApp.AutoSize = true;
+            this.labelNameInApp.Font = new System.Drawing.Font("宋体", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.labelNameInApp.Location = new System.Drawing.Point(94, 134);
+            this.labelNameInApp.Name = "labelNameInApp";
+            this.labelNameInApp.Size = new System.Drawing.Size(72, 16);
+            this.labelNameInApp.TabIndex = 11;
+            this.labelNameInApp.Text = "新增设备";
             // 
             // UserConDataShow
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.ButtonShadow;
+            this.Controls.Add(this.labelNameInApp);
+            this.Controls.Add(this.label6);
             this.Controls.Add(this.labelRssi);
             this.Controls.Add(this.labelDeviceName);
             this.Controls.Add(this.labelDeviceAddr);
@@ -156,7 +180,7 @@
             this.Controls.Add(this.label2);
             this.Controls.Add(this.label1);
             this.Name = "UserConDataShow";
-            this.Size = new System.Drawing.Size(178, 182);
+            this.Size = new System.Drawing.Size(178, 167);
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -174,5 +198,7 @@
         private System.Windows.Forms.Label labelDeviceAddr;
         private System.Windows.Forms.Label labelDeviceName;
         private System.Windows.Forms.Label labelRssi;
+        private System.Windows.Forms.Label label6;
+        private System.Windows.Forms.Label labelNameInApp;
     }
 }

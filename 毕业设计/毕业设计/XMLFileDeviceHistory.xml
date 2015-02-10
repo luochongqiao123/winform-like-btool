@@ -1,0 +1,11 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<DeviceTable>
+  <Device DeviceAddr="B4:99:4C:62:1E:FB">
+    <FirstCheckInTime>2015/2/10 12:04:37</FirstCheckInTime>
+    <NameInDevice>SimpleBLEPeripheral</NameInDevice>
+  </Device>
+  <Device DeviceAddr="B4:99:4C:62:21:E8">
+    <FirstCheckInTime>2015/2/10 12:04:37</FirstCheckInTime>
+    <NameInDevice>SimpleBLEPeripheral</NameInDevice>
+  </Device>
+</DeviceTable>
