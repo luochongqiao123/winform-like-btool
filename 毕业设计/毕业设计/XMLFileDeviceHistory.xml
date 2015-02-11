@@ -1,11 +1,19 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <DeviceTable>
   <Device DeviceAddr="B4:99:4C:62:1E:FB">
-    <FirstCheckInTime>2015/2/10 12:04:37</FirstCheckInTime>
+    <FirstCheckInTime>2015/2/10 21:21:30</FirstCheckInTime>
+    <NameInApp>能用的设备</NameInApp>
+    <ReCheckInTime>2015/2/11 11:54:53</ReCheckInTime>
+    <LastDisapperTime>2015/2/11 11:54:39</LastDisapperTime>
+    <DisapperRssi>223</DisapperRssi>
     <NameInDevice>SimpleBLEPeripheral</NameInDevice>
   </Device>
   <Device DeviceAddr="B4:99:4C:62:21:E8">
-    <FirstCheckInTime>2015/2/10 12:04:37</FirstCheckInTime>
+    <FirstCheckInTime>2015/2/10 21:21:30</FirstCheckInTime>
+    <ReCheckInTime>2015/2/11 11:59:29</ReCheckInTime>
+    <NameInApp>虚拟设备</NameInApp>
+    <LastDisapperTime>2015/2/11 11:59:29</LastDisapperTime>
+    <DisapperRssi>194</DisapperRssi>
     <NameInDevice>SimpleBLEPeripheral</NameInDevice>
   </Device>
 </DeviceTable>

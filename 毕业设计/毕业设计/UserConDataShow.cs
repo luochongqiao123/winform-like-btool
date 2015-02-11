@@ -25,6 +25,8 @@ namespace 毕业设计
         private DateTime _deviceLastUpdate;
         private string _nameInapp;//在软件上显示的名称
 
+        public event EventHandler NameInAppChangeEvent;//名字改变时写入
+
         public string DeviceAddr
         {
             set
@@ -39,7 +41,6 @@ namespace 毕业设计
                 return _addr;
             }
         }
-
         public string Temp
         {
             set
@@ -53,7 +54,6 @@ namespace 毕业设计
                 return _temp;
             }
         }
-
         public string Humi
         {
             set
@@ -67,7 +67,6 @@ namespace 毕业设计
                 return _humi;
             }
         }
-
         public string DeviceName
         {
             set
@@ -81,7 +80,6 @@ namespace 毕业设计
                 return _name;
             }
         }
-
         public string Rssi
         {
             set
@@ -95,7 +93,6 @@ namespace 毕业设计
                 return _rssi;
             }
         }
-
         public DateTime DeviceLastUpdate 
         {
             get 
@@ -107,7 +104,6 @@ namespace 毕业设计
                 _deviceLastUpdate = value; 
             }
         }
-
         public string NameInApplication
         {
             get 
@@ -117,7 +113,19 @@ namespace 毕业设计
             set
             {
                 this._nameInapp = value;
-                this.labelNameInApp.Text = this._nameInapp;
+                this.textBoxNameInApp.Text = this._nameInapp;
+                NameInAppChangeEvent(this, new EventArgs());//触发事件，Device对象更新
+            }
+        }
+        public bool IsNewDevice 
+        { 
+            get 
+            { 
+                return this.labelNewDevice.Visible; 
+            }
+            set
+            {
+                this.labelNewDevice.Visible = value;
             }
         }
 
@@ -127,10 +135,38 @@ namespace 毕业设计
 
             this.Temp = Device.CurTemp.ToString() + "℃";
             this.Humi = Device.CurHumi.ToString("n2") + "%";
-            this.Rssi = Device.Rssi.ToString("X2");
+            this.Rssi = Device.Rssi.ToString();
             this.DeviceAddr = Device.DeviceAddr;
             this.DeviceName = Device.DeviceName;
             this.DeviceLastUpdate = Device.LastUpdate;
+        }
+
+        /// <summary>
+        /// 按钮用于保存用户命名
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void buttonModifyName_Click(object sender, EventArgs e)
+        {
+            if (this.textBoxNameInApp.Enabled == false)
+            {
+                this.buttonModifyName.Text = "锁定";
+                this.textBoxNameInApp.Enabled = true;
+            }
+            else 
+            {
+                this.buttonModifyName.Text = "修改";
+                this.textBoxNameInApp.Enabled = false;
+                this.NameInApplication = this.textBoxNameInApp.Text;//修改即触发事件
+            }
+        }
+
+        private void labelNewDevice_Click(object sender, EventArgs e)
+        {
+            if (labelNewDevice.Visible == true)
+            {
+                labelNewDevice.Visible = false;
+            }
         }
     }
 }

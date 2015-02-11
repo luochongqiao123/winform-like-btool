@@ -22,7 +22,7 @@ namespace 毕业设计
 
         public event EventHandler DeviceUpdateDoneEvent; //设备更新完以后通知界面来更新
         public event DeviceDataUpdateDoneEventHandler DeviceDataChangeEvent;    //设备名称改变，通知xml来改写
-        public event EventHandler DeviceNameInAppChange;    //用户命名出现改变以后的事件
+        //public event DeviceDataUpdateDoneEventHandler DeviceNameInAppChange;    //用户命名出现改变以后的事件
 
         public string DeviceAddr { get { return this._addr; } }
         public byte Rssi { get { return this._currentRssi; } }
@@ -36,9 +36,9 @@ namespace 毕业设计
             set 
             { 
                 this._nameInApplication = value;
-                if (this.DeviceNameInAppChange != null)
+                if (this.DeviceDataChangeEvent != null)
                 {   //改名触发事件
-                    DeviceNameInAppChange(this, new EventArgs());
+                    DeviceDataChangeEvent(this, new DeviceEventArgs("NameInApp"));
                 }
             }
         }
@@ -109,6 +109,11 @@ namespace 毕业设计
             return HexString;
         }
 
+        public void UpdateNameInApp(object sender, EventArgs e)
+        {   //在界面上改变名字后触发到这里来
+            UserConDataShow Shower = sender as UserConDataShow;
+            this.NameInApplication = Shower.NameInApplication;
+        }
 
         //private void ProcessData(byte[] Data, byte eventType)//把广播的数据进行分段分析，提取有用的信息
         //{

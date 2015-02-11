@@ -44,8 +44,8 @@ namespace 毕业设计
             XElement InsertRecord = new XElement(
                 new XElement("Device",
                     new XAttribute("DeviceAddr", Device.DeviceAddr),
-                    new XElement("FirstCheckInTime", DateTime.Now.ToString())
-                    //new XElement("DeviceName", Device.DeviceName)
+                    new XElement("FirstCheckInTime", DateTime.Now.ToString()),
+                    new XElement("NameInApp", "新增设备")
                     ));
             DealerElememt.Add(InsertRecord);
             DealerElememt.Save(xmlFileLocation);     
@@ -64,6 +64,33 @@ namespace 毕业设计
                                                  select ele;
             //找到就返回
             return elememntList.Count()>0 ? elememntList.First() : null;
+        }
+
+        /// <summary>
+        /// 在xml文件中查找旧的NameInApp
+        /// </summary>
+        /// <param name="Device"></param>
+        /// <returns></returns>
+        public string ReloadDeviceOldNameInApp(TempHumiDevice Device)
+        {   //返回旧的名字
+            XElement xe = QueryDevice(Device);
+            try
+            {
+                return xe.Element("NameInApp").Value;
+            }
+            catch   //出错就返回一个默认的
+            {
+                return "新增设备";
+            }
+            //if (result == null || result ==string.Empty)
+            //{   //如果查不到，就返回一个字符串
+            //    return "新增设备";
+            //}
+            //else
+            //{
+            //    return result;
+            //}
+
         }
 
         /// <summary>
@@ -101,6 +128,10 @@ namespace 毕业设计
             else if (e.UpdateElementXName == "LastDisapperTime")
             {
                 UpdateDeviceElememtInXML(Device, e.UpdateElementXName, DateTime.Now.ToString());
+            }
+            else if (e.UpdateElementXName == "NameInApp")
+            {
+                UpdateDeviceElememtInXML(Device, e.UpdateElementXName, Device.NameInApplication);
             }
         }
     }

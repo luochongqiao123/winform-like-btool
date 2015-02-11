@@ -36,6 +36,9 @@ namespace 毕业设计
             comboBoxPort.SelectedIndex = comboBoxPort.Items.Count > 0 ? 0 : -1;
 
             Dongle.GAP_DeviceInformationEventPackComeEvent += this.DeviceSearch;//new PackComeEventHandler(Device.DataComeUpdate);
+            Dongle.GAP_DeviceInitDoneEventPackComeEvent+= (PackComeEventHandler)(delegate{
+                this.labelShowStatus.Text = "Dongle初始化完成！"; //初始化完成事件订阅
+            });
 
             TimerCheckUpdate.Enabled = false;
             TimerCheckUpdate.Interval = 10000;//一分钟一次
@@ -55,6 +58,7 @@ namespace 毕业设计
                 Dongle.DongleOpen(comboBoxPort.Text);
                 if (Dongle.IsOpen)  //打开了才进行写入
                 {
+                    this.labelShowStatus.Text = "初始化Dongle...";
                     this.TimerCheckUpdate.Start();
                     Dongle.SendCmd(PackageSend.GAP_DeviceInitPack());//Usbdongle Init
                 }
@@ -65,20 +69,18 @@ namespace 毕业设计
         private void GenerateConDataShow()
         {
             int x, y, width, height, x_dis, y_dis;
-            x = 12; y = 41; width = 202; height = 184; x_dis = 40; y_dis = 20;
-            for (int r = 0; r < 3; r++)
-            {
-                for (int c = 0; c < 2; c++)
-                {
-                    UserConDataShow DataShow = new UserConDataShow();
-                    DataShow.Left = x + c * (x_dis+height);
-                    DataShow.Top = y + r * (y_dis+width);
-                    DataShow.Width = width;
-                    DataShow.Height = height;
-                    DataShow.Visible = false;
-                    DataShowtable[r * 2 + c] = DataShow;
-                    this.Controls.Add(DataShow);
-                }
+            x = 12; y = 41; width = 574; height = 74; x_dis = 40; y_dis = 12;
+            for (int r = 0; r < 6; r++)
+            {               
+                UserConDataShow DataShow = new UserConDataShow();
+                DataShow.Left = x;
+                DataShow.Top = y + r * (y_dis+height);
+                DataShow.Width = width;
+                DataShow.Height = height;
+                DataShow.Visible = false;
+                DataShowtable[r] = DataShow;
+                //this.Controls.Add(DataShow);                
+                this.flowLayoutPanelMain.Controls.Add(DataShow);
             }
         }
 
@@ -106,6 +108,8 @@ namespace 毕业设计
                     else
                     {   //如果本来存在，就写入重新出现时时间
                         XMLDealer.UpdateDeviceElememtInXML(Device, "ReCheckInTime", DateTime.Now.ToString());
+                        //同时载入旧的名字,触发事件链
+                        this.DataShowtable[Device.DataShowTableIndex].NameInApplication = XMLDealer.ReloadDeviceOldNameInApp(Device);
                     }
                     //手动更新
                     XMLDealer.UpdateDeviceElememtInXML(Device, "NameInDevice", Device.DeviceName);
@@ -129,8 +133,10 @@ namespace 毕业设计
                     DeviceTable.Add(TempHumiDevice.ToHexAddrString(Pack.Addr), Device);//加入到Device的哈希表中
       
                     Device.DeviceUpdateDoneEvent += DataShowtable[index].DataShowUpdate;//控件订阅Device更新完毕的事件
+                    DataShowtable[index].NameInAppChangeEvent += Device.UpdateNameInApp;    //界面上更新名称也要更新Device对象
+                    DataShowtable[index].IsNewDevice = true;    //显示新增设备
                     DataShowtable[index].Visible = true;//显示界面
-
+                    this.labelShowStatus.Text = "新增一设备   " + DateTime.Now.ToLocalTime().ToString();
                     return Device;  //返回Device对象
                     break;
                 }
@@ -175,6 +181,7 @@ namespace 毕业设计
                     TempHumiDevice tempDevice = this.DeviceTable[tempDeviceAddr] as TempHumiDevice;
                     XMLDealer.UpdateDeviceElememtInXML(tempDevice, "LastDisapperTime", DateTime.Now.ToString());
                     XMLDealer.UpdateDeviceElememtInXML(tempDevice, "DisapperRssi", tempDevice.Rssi.ToString());
+                    this.labelShowStatus.Text = "一设备消失   " + DateTime.Now.ToLocalTime().ToString();
                     this.DeviceTable.Remove(tempDeviceAddr);
                 }
                 catch
