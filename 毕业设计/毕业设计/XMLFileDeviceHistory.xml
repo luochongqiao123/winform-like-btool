@@ -3,17 +3,17 @@
   <Device DeviceAddr="B4:99:4C:62:1E:FB">
     <FirstCheckInTime>2015/2/10 21:21:30</FirstCheckInTime>
     <NameInApp>能用的设备</NameInApp>
-    <ReCheckInTime>2015/2/11 11:54:53</ReCheckInTime>
-    <LastDisapperTime>2015/2/11 11:54:39</LastDisapperTime>
-    <DisapperRssi>223</DisapperRssi>
+    <ReCheckInTime>2015/2/12 15:04:53</ReCheckInTime>
+    <LastDisapperTime>2015/2/12 15:04:29</LastDisapperTime>
+    <DisapperRssi>222</DisapperRssi>
     <NameInDevice>SimpleBLEPeripheral</NameInDevice>
   </Device>
   <Device DeviceAddr="B4:99:4C:62:21:E8">
     <FirstCheckInTime>2015/2/10 21:21:30</FirstCheckInTime>
-    <ReCheckInTime>2015/2/11 11:59:29</ReCheckInTime>
-    <NameInApp>虚拟设备</NameInApp>
-    <LastDisapperTime>2015/2/11 11:59:29</LastDisapperTime>
-    <DisapperRssi>194</DisapperRssi>
+    <ReCheckInTime>2015/2/12 14:55:57</ReCheckInTime>
+    <NameInApp>虚拟的设备</NameInApp>
+    <LastDisapperTime>2015/2/12 14:36:49</LastDisapperTime>
+    <DisapperRssi>191</DisapperRssi>
     <NameInDevice>SimpleBLEPeripheral</NameInDevice>
   </Device>
 </DeviceTable>

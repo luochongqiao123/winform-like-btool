@@ -81,16 +81,7 @@ namespace 毕业设计
             catch   //出错就返回一个默认的
             {
                 return "新增设备";
-            }
-            //if (result == null || result ==string.Empty)
-            //{   //如果查不到，就返回一个字符串
-            //    return "新增设备";
-            //}
-            //else
-            //{
-            //    return result;
-            //}
-
+            }            
         }
 
         /// <summary>

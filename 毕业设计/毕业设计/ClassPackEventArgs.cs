@@ -35,4 +35,7 @@ namespace 毕业设计
             this.UpdateElementXName = Xname;
         }
     }
+
+    
+
 }

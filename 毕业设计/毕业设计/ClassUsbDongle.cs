@@ -19,10 +19,11 @@ namespace 毕业设计
         private SerialPort comm;
         private Queue<byte[]> PackQue = new Queue<byte[]>();//收到的包都放到这个队列里面
         private Timer TimerCheck = new Timer();
-
         public Boolean IsOpen { get { return comm.IsOpen; } }//显示DOngle的串口打开情况
 
-
+        /// <summary>
+        /// 初始化，设定好定时器和订阅好事件
+        /// </summary>
         public UsbDongle()
         {
             comm = new SerialPort();
@@ -37,6 +38,11 @@ namespace 毕业设计
             this.GAP_DeviceInitDoneEventPackComeEvent += UsbDongle_GAP_DeviceInitDoneEventPackComeEvent;
         }
 
+        /// <summary>
+        /// 串口收到数据后，把数据包（串口包）存到一个队列里面
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         void comm_DataReceived(object sender, SerialDataReceivedEventArgs e)//串口收到数据后的回调函数
         {
             SerialPort Port = (SerialPort)sender;
@@ -46,6 +52,10 @@ namespace 毕业设计
             PackQue.Enqueue(buf);//入队列
         }
         
+        /// <summary>
+        /// 打开串口
+        /// </summary>
+        /// <param name="text"></param>
         public void DongleOpen(string text)   //打开串口
         {
             comm.PortName = text;
@@ -66,12 +76,18 @@ namespace 毕业设计
             if (comm.IsOpen) TimerCheck.Start();//打开了才开始定时器
         }
 
+        /// <summary>
+        /// 关闭串口
+        /// </summary>
         public void DongleClose()       //关闭串口
         {
             comm.Close();
             TimerCheck.Stop();
         }
 
+        /// <summary>
+        /// 处理队列中的串口包，根据包的类型触发不同类型的事件
+        /// </summary>
         private void PackageProcess()       //处理在队列的包
         {
             while (this.PackQue.Count != 0)
@@ -118,17 +134,31 @@ namespace 毕业设计
             }
         }
 
+        /// <summary>
+        /// 发送数据，简单的串口写
+        /// </summary>
+        /// <param name="SendData"></param>
         public void SendCmd(byte[] SendData)    //发送命令
         {
             comm.Write(SendData, 0, SendData.Length);
         }
 
+        /// <summary>
+        /// 定时扫描和处理队列里面的串口包
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         void TimerCheck_Tick(object sender, EventArgs e)    //3秒一次
         {
             PackageProcess();       //先处理完所有的包，再发出扫描的信号
             this.SendCmd(PackageSend.GAP_DeviceDiscoveryRequestPack());
         }
 
+        /// <summary>
+        /// 收到初始化完成的包后，把扫描时间调好
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         void UsbDongle_GAP_DeviceInitDoneEventPackComeEvent(object sender, PackEventArgs e)//收到初始化完成的包的处理函数
         {
             GAP_DeviceInitDonePack Pack = new GAP_DeviceInitDonePack(e._pack);

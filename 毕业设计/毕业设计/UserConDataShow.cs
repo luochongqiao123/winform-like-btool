@@ -133,11 +133,13 @@ namespace 毕业设计
         {
             TempHumiDevice Device = (TempHumiDevice)sender;
 
-            this.Temp = Device.CurTemp.ToString() + "℃";
-            this.Humi = Device.CurHumi.ToString("n2") + "%";
-            this.Rssi = Device.Rssi.ToString();
-            this.DeviceAddr = Device.DeviceAddr;
-            this.DeviceName = Device.DeviceName;
+            this.Invoke((EventHandler)(delegate
+            {
+                this.Temp = Device.CurTemp.ToString() + "℃";
+                this.Humi = Device.CurHumi.ToString("n2") + "%";
+                this.Rssi = Device.Rssi.ToString();
+                this.DeviceName = Device.DeviceName;
+            }));            
             this.DeviceLastUpdate = Device.LastUpdate;
         }
 
