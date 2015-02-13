@@ -63,46 +63,7 @@ namespace 毕业设计
         public static byte[] GAP_DeviceDiscoveryRequestPack()
         {
             return GAP_DeviceDiscoveryRequest;
-        }
-
-
-
-        //private const byte _Type = 0x01;
-        //private UInt16 _OpCode;
-        //private byte _DataLength;
-        //private byte[] Package;
-        //public UInt16 OpCode { get { return _OpCode; } }
-        //public byte DataLength { get { return _DataLength; } }
-        //public int Length { get { return Package.Length; } }
-        //public PackageSend(UInt16 OpCode,byte[] DataBuf)
-        //{
-        //    this._OpCode = OpCode;
-        //    this._DataLength = (byte)DataBuf.Length;
-
-        //    Package = new byte[DataBuf.Length + 4];
-        //    Package[0] = _Type;
-        //    Package[1] = (byte)(OpCode & 0xFF);
-        //    Package[2] = (byte)(OpCode >> 8);
-        //    Package[3] = (byte)DataBuf.Length;
-        //    DataBuf.CopyTo(Package, 4);
-        //}
-
-        //public byte this[int idx]
-        //{
-        //    get
-        //    {
-        //        if (idx >= 0 && idx < Package.Length)
-        //        {
-        //            return Package[idx];
-        //        }
-        //        else
-        //        {
-        //            return 0xFF;
-        //        }
-                    
-        //    }
-        //}
-
+        }        
     }
 }
 

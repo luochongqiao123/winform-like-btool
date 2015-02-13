@@ -24,6 +24,7 @@ namespace 毕业设计
         private string _rssi;
         private DateTime _deviceLastUpdate;
         private string _nameInapp;//在软件上显示的名称
+        private string _vccVoltage; //电源电压
 
         public event EventHandler NameInAppChangeEvent;//名字改变时写入
 
@@ -128,17 +129,32 @@ namespace 毕业设计
                 this.labelNewDevice.Visible = value;
             }
         }
+        public string VccVoltage
+        {
+            get { return _vccVoltage; }
+            set 
+            { 
+                this._vccVoltage = value;
+                this.labelVccVoltage.Text = this._vccVoltage;
+            }
+        }
 
+        /// <summary>
+        /// 更新界面上的数据和信息
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         public void DataShowUpdate(object sender, EventArgs e)  //搭配Device，更新显示的数据
         {
             TempHumiDevice Device = (TempHumiDevice)sender;
 
             this.Invoke((EventHandler)(delegate
             {
-                this.Temp = Device.CurTemp.ToString() + "℃";
-                this.Humi = Device.CurHumi.ToString("n2") + "%";
-                this.Rssi = Device.Rssi.ToString();
-                this.DeviceName = Device.DeviceName;
+                this.Temp = Device.CurTemp.ToString() + "℃";//温度
+                this.Humi = Device.CurHumi.ToString("n2") + "%";//湿度
+                this.Rssi = Device.Rssi.ToString();//Rssi
+                this.DeviceName = Device.DeviceName;//设备名称
+                this.VccVoltage = Device.VccVoltage.ToString("n2") + "V";//电源电压
             }));            
             this.DeviceLastUpdate = Device.LastUpdate;
         }
@@ -163,6 +179,11 @@ namespace 毕业设计
             }
         }
 
+        /// <summary>
+        /// 显示新增的字样，点击后消失
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void labelNewDevice_Click(object sender, EventArgs e)
         {
             if (labelNewDevice.Visible == true)

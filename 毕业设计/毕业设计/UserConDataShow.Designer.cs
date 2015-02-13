@@ -42,6 +42,7 @@
             this.buttonModifyName = new System.Windows.Forms.Button();
             this.textBoxNameInApp = new System.Windows.Forms.TextBox();
             this.labelNewDevice = new System.Windows.Forms.Label();
+            this.labelVccVoltage = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
             // label1
@@ -186,11 +187,21 @@
             this.labelNewDevice.Text = "新增";
             this.labelNewDevice.Click += new System.EventHandler(this.labelNewDevice_Click);
             // 
+            // labelVccVoltage
+            // 
+            this.labelVccVoltage.AutoSize = true;
+            this.labelVccVoltage.Location = new System.Drawing.Point(341, 55);
+            this.labelVccVoltage.Name = "labelVccVoltage";
+            this.labelVccVoltage.Size = new System.Drawing.Size(17, 12);
+            this.labelVccVoltage.TabIndex = 15;
+            this.labelVccVoltage.Text = "  ";
+            // 
             // UserConDataShow
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.ButtonShadow;
+            this.Controls.Add(this.labelVccVoltage);
             this.Controls.Add(this.labelNewDevice);
             this.Controls.Add(this.textBoxNameInApp);
             this.Controls.Add(this.buttonModifyName);
@@ -228,5 +239,6 @@
         private System.Windows.Forms.Button buttonModifyName;
         private System.Windows.Forms.TextBox textBoxNameInApp;
         private System.Windows.Forms.Label labelNewDevice;
+        private System.Windows.Forms.Label labelVccVoltage;
     }
 }

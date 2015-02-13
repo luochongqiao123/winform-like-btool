@@ -3,9 +3,9 @@
   <Device DeviceAddr="B4:99:4C:62:1E:FB">
     <FirstCheckInTime>2015/2/10 21:21:30</FirstCheckInTime>
     <NameInApp>能用的设备</NameInApp>
-    <ReCheckInTime>2015/2/12 15:04:53</ReCheckInTime>
-    <LastDisapperTime>2015/2/12 15:04:29</LastDisapperTime>
-    <DisapperRssi>222</DisapperRssi>
+    <ReCheckInTime>2015/2/13 19:00:57</ReCheckInTime>
+    <LastDisapperTime>2015/2/13 19:00:55</LastDisapperTime>
+    <DisapperRssi>209</DisapperRssi>
     <NameInDevice>SimpleBLEPeripheral</NameInDevice>
   </Device>
   <Device DeviceAddr="B4:99:4C:62:21:E8">
