@@ -94,7 +94,7 @@ namespace 毕业设计
             try
             {
                 XElement targetElement = QueryDevice(Device);
-                targetElement.SetElementValue(Name, Value);
+                targetElement.SetElementValue(Name, Value);                
                 DealerElememt.Save(xmlFileLocation);//保存起来
             }
             catch

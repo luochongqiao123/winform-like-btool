@@ -31,7 +31,7 @@ namespace 毕业设计
             comm.RtsEnable = true;//视个人情况
 
             TimerCheck.Enabled = true;
-            TimerCheck.Interval = 4000;//设定定时器,3秒一次
+            TimerCheck.Interval = 1000;//设定定时器,3秒一次
             TimerCheck.Stop();
             TimerCheck.Tick +=TimerCheck_Tick;
 
@@ -166,7 +166,7 @@ namespace 毕业设计
             if (Pack.Status == PackageReceive.Success)
             {
                 //扫描间隔改为2s，即扫描在2s内完成
-                Dongle.SendCmd(PackageSend.GAP_SetParamPack(PackageSend.TGAP_GEN_DISC_SCAN, (UInt16)3000));
+                Dongle.SendCmd(PackageSend.GAP_SetParamPack(PackageSend.TGAP_GEN_DISC_SCAN, (UInt16)800));
             }
             else
             {

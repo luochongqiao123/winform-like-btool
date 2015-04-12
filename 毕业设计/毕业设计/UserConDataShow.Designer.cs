@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
             this.label1 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
             this.label3 = new System.Windows.Forms.Label();
@@ -43,6 +44,11 @@
             this.textBoxNameInApp = new System.Windows.Forms.TextBox();
             this.labelNewDevice = new System.Windows.Forms.Label();
             this.labelVccVoltage = new System.Windows.Forms.Label();
+            this.labelWorkStatus = new System.Windows.Forms.Label();
+            this.contextMenuStripShowTable = new System.Windows.Forms.ContextMenuStrip(this.components);
+            this.ToolStripMenuItemDeleteDataShow = new System.Windows.Forms.ToolStripMenuItem();
+            this.ToolStripMenuItemShowTable = new System.Windows.Forms.ToolStripMenuItem();
+            this.contextMenuStripShowTable.SuspendLayout();
             this.SuspendLayout();
             // 
             // label1
@@ -196,11 +202,46 @@
             this.labelVccVoltage.TabIndex = 15;
             this.labelVccVoltage.Text = "  ";
             // 
+            // labelWorkStatus
+            // 
+            this.labelWorkStatus.AutoSize = true;
+            this.labelWorkStatus.BackColor = System.Drawing.SystemColors.ButtonShadow;
+            this.labelWorkStatus.ForeColor = System.Drawing.Color.Green;
+            this.labelWorkStatus.Location = new System.Drawing.Point(257, 55);
+            this.labelWorkStatus.Name = "labelWorkStatus";
+            this.labelWorkStatus.Size = new System.Drawing.Size(53, 12);
+            this.labelWorkStatus.TabIndex = 16;
+            this.labelWorkStatus.Text = "正常工作";
+            // 
+            // contextMenuStripShowTable
+            // 
+            this.contextMenuStripShowTable.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.ToolStripMenuItemDeleteDataShow,
+            this.ToolStripMenuItemShowTable});
+            this.contextMenuStripShowTable.Name = "contextMenuStripShowTable";
+            this.contextMenuStripShowTable.Size = new System.Drawing.Size(153, 70);
+            // 
+            // ToolStripMenuItemDeleteDataShow
+            // 
+            this.ToolStripMenuItemDeleteDataShow.Name = "ToolStripMenuItemDeleteDataShow";
+            this.ToolStripMenuItemDeleteDataShow.Size = new System.Drawing.Size(152, 22);
+            this.ToolStripMenuItemDeleteDataShow.Text = "删除";
+            this.ToolStripMenuItemDeleteDataShow.Click += new System.EventHandler(this.ToolStripMenuItemDeleteDataShow_Click);
+            // 
+            // ToolStripMenuItemShowTable
+            // 
+            this.ToolStripMenuItemShowTable.Name = "ToolStripMenuItemShowTable";
+            this.ToolStripMenuItemShowTable.Size = new System.Drawing.Size(152, 22);
+            this.ToolStripMenuItemShowTable.Text = "显示图线";
+            this.ToolStripMenuItemShowTable.Click += new System.EventHandler(this.ToolStripMenuItemShowTable_Click);
+            // 
             // UserConDataShow
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.ButtonShadow;
+            this.ContextMenuStrip = this.contextMenuStripShowTable;
+            this.Controls.Add(this.labelWorkStatus);
             this.Controls.Add(this.labelVccVoltage);
             this.Controls.Add(this.labelNewDevice);
             this.Controls.Add(this.textBoxNameInApp);
@@ -218,6 +259,7 @@
             this.Controls.Add(this.label1);
             this.Name = "UserConDataShow";
             this.Size = new System.Drawing.Size(574, 74);
+            this.contextMenuStripShowTable.ResumeLayout(false);
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -240,5 +282,9 @@
         private System.Windows.Forms.TextBox textBoxNameInApp;
         private System.Windows.Forms.Label labelNewDevice;
         private System.Windows.Forms.Label labelVccVoltage;
+        private System.Windows.Forms.Label labelWorkStatus;
+        private System.Windows.Forms.ContextMenuStrip contextMenuStripShowTable;
+        private System.Windows.Forms.ToolStripMenuItem ToolStripMenuItemDeleteDataShow;
+        private System.Windows.Forms.ToolStripMenuItem ToolStripMenuItemShowTable;
     }
 }

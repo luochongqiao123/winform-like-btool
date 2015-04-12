@@ -17,6 +17,7 @@ namespace 毕业设计
         private double _currentHumi;
         private double _vccVoltage;
         private string _nameInApplication;//在软件上的命名
+        private bool _workStatus;   //工作状态，正常还是不正常
 
         public const UInt16 DeviceServiceUUID = 0xFFF0;
 
@@ -42,6 +43,8 @@ namespace 毕业设计
             }
         }
         public double VccVoltage { get { return _vccVoltage; } }
+        public bool WorkStatus { get { return _workStatus; }
+                                set { _workStatus = value; }}
 
         /// <summary>
         /// 初始化，写入设备地址等数据
@@ -52,7 +55,8 @@ namespace 毕业设计
             this._addr = ToHexAddrString(Pack.Addr);
             this._lastUpdate = new DateTime();
             this._lastUpdate = DateTime.Now;
-            this._lastRssi = this._currentRssi = Pack.Rssi;           
+            this._lastRssi = this._currentRssi = Pack.Rssi;
+            this._workStatus = true;
         }
 
         /// <summary>
@@ -62,6 +66,7 @@ namespace 毕业设计
         public void DeviceUpdate(GAP_DeviceInformationPack Pack)
         {
             if (ToHexAddrString(Pack.Addr) != this._addr) return;
+            this.WorkStatus = true;
             this._lastRssi = this._currentRssi;
             this._currentRssi = Pack.Rssi;
             this._lastUpdate = DateTime.Now;
@@ -104,6 +109,18 @@ namespace 毕业设计
                 }
             }
 
+            if (this.DeviceUpdateDoneEvent != null)
+            {//设备更新完以后通知界面来更新
+                DeviceUpdateDoneEvent(this, new EventArgs());
+            }
+        }
+
+        /// <summary>
+        /// 更新工作状态
+        /// </summary>
+        public void DeviceUpdate(bool ChangeWorkStatus)
+        {
+            this.WorkStatus = ChangeWorkStatus;
             if (this.DeviceUpdateDoneEvent != null)
             {//设备更新完以后通知界面来更新
                 DeviceUpdateDoneEvent(this, new EventArgs());

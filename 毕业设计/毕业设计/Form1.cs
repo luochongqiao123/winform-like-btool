@@ -115,27 +115,34 @@ namespace 毕业设计
             {       //如果没有，就新建
                        //先验证是不是认证的UUID
                 byte[] PackDeviceUUID = GAP_DeviceInformationPack.AdvertData_Extraction(Pack.AdvertData, 0x02);//提取UUID信息
-                if (PackageReceive.Combine2ByteToUInt16(PackDeviceUUID[1], PackDeviceUUID[0]) == TempHumiDevice.DeviceServiceUUID)
-                {       //如果是，才加入设备
-                    TempHumiDevice Device = AddDeviceToTable(Pack);                    
-                    //名字发生变化就马上写入xml，订阅事件后先手动更新一次
-                    Device.DeviceDataChangeEvent += new DeviceDataUpdateDoneEventHandler(XMLDealer.DeviceData_Update);
-                    //编写状态栏
-                    this.labelShowStatus.Text = "新增一设备   " + DateTime.Now.ToLocalTime().ToString();
-                    //如果从来没有出现过，就插入到XML文件当中
-                    if (XMLDealer.QueryDevice(Device) == null)
-                    {  
-                        XMLDealer.XMLInsertDevice(Device);
+                try
+                {
+                    if (PackageReceive.Combine2ByteToUInt16(PackDeviceUUID[1], PackDeviceUUID[0]) == TempHumiDevice.DeviceServiceUUID)
+                    {       //如果是，才加入设备
+                        TempHumiDevice Device = AddDeviceToTable(Pack);
+                        //名字发生变化就马上写入xml，订阅事件后先手动更新一次
+                        Device.DeviceDataChangeEvent += new DeviceDataUpdateDoneEventHandler(XMLDealer.DeviceData_Update);
+                        //编写状态栏
+                        this.labelShowStatus.Text = "新增一设备   " + DateTime.Now.ToLocalTime().ToString();
+                        //如果从来没有出现过，就插入到XML文件当中
+                        if (XMLDealer.QueryDevice(Device) == null)
+                        {
+                            XMLDealer.XMLInsertDevice(Device);
+                        }
+                        else
+                        {   //如果本来存在，就写入重新出现时时间
+                            XMLDealer.UpdateDeviceElememtInXML(Device, "ReCheckInTime", DateTime.Now.ToString());
+                            //同时载入旧的名字,触发事件链
+                            ((DeviceDataShowStruct)DeviceTable[Device.DeviceAddr]).DataShow.NameInApplication = XMLDealer.ReloadDeviceOldNameInApp(Device);
+                        }
+                        //手动更新
+                        XMLDealer.UpdateDeviceElememtInXML(Device, "NameInDevice", Device.DeviceName);
+
                     }
-                    else
-                    {   //如果本来存在，就写入重新出现时时间
-                        XMLDealer.UpdateDeviceElememtInXML(Device, "ReCheckInTime", DateTime.Now.ToString());
-                        //同时载入旧的名字,触发事件链
-                        ((DeviceDataShowStruct)DeviceTable[Device.DeviceAddr]).DataShow.NameInApplication = XMLDealer.ReloadDeviceOldNameInApp(Device);
-                    }
-                    //手动更新
-                    XMLDealer.UpdateDeviceElememtInXML(Device, "NameInDevice", Device.DeviceName);
-                 
+                }
+                catch
+                {
+                    //出现捉不到ID的情况
                 }
                 
             }
@@ -200,9 +207,11 @@ namespace 毕业设计
                     XMLDealer.UpdateDeviceElememtInXML(tempDevice, "LastDisapperTime", DateTime.Now.ToString());
                     XMLDealer.UpdateDeviceElememtInXML(tempDevice, "DisapperRssi", tempDevice.Rssi.ToString());            
                     //先从容器中移除
-                    this.flowLayoutPanelMain.Controls.Remove(((DeviceDataShowStruct)this.DeviceTable[tempDeviceAddr]).DataShow);
+                    //this.flowLayoutPanelMain.Controls.Remove(((DeviceDataShowStruct)this.DeviceTable[tempDeviceAddr]).DataShow);
+                    //显示不正常工作
+                    tempDevice.DeviceUpdate(false);
                     //最后移除出DeviceTable这个哈希表
-                    this.DeviceTable.Remove(tempDeviceAddr);
+                    //this.DeviceTable.Remove(tempDeviceAddr);
                     //编写状态栏
                     this.labelShowStatus.Text = "一设备消失   " + DateTime.Now.ToLocalTime().ToString();
                 }
